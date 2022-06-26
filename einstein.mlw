@@ -10,18 +10,66 @@ theory Bijection
 
 end
 
-theory Einstein
+theory S
 
-  type nationality  : english | swedish | danish | norwegian | german
-  type house        : h1 | h2 | h3 | h4 | h5
-  type color        : red | green | white | yellow | blue
-  type pet          : dog | bird | cat | horse | fish
-  type drink        : tea | coffe | milk | beer | water
-  type cigars_brand : pall_mall | dunhill | blends | blue_masters | prince
+  type person       = English | Swedish | Danish | Norwegian | German
+  type house        = H1 | H2 | H3 | H4 | H5
+  type color        = Red | Green | White | Yellow | Blue
+  type pet          = Dog | Bird | Cat | Horse | Fish
+  type drink        = Tea | Coffee | Milk | Beer | Water
+  type cigars_brand = Pall_mall | Dunhill | Blends | Blue_masters | Prince
   
   clone Bijection as Color with type t = house, type u = color
-  clone Bijection as Owner with type t = house, type u = nationality
+  clone Bijection as Owner with type t = house, type u = person
   
-  clone Bijection as Pet with type t = nationality, type u = pet
-  clone Bijection as Drink with type t = nationality, type u = drink
-  clone Bijection as Cigars with type t = nationality, type u = cigars_brand
+  clone Bijection as Pet with type t = person, type u = pet
+  clone Bijection as Drink with type t = person, type u = drink
+  clone Bijection as Cigars with type t = person, type u = cigars_brand
+  
+  predicate left_of (h_a h_b : house) = 
+    match h_a, h_b with
+    | H1, H2
+    | H2, H3
+    | H3, H4
+    | H4, H5 -> true
+    | _ -> false
+    end
+    
+  predicate right_of (h_a h_b : house) = 
+    left_of h_b h_a
+    
+  predicate neighbour (h_a h_b : house) = 
+    left_of h_a h_b \/ right_of h_a h_b
+ end
+ 
+theory Hints
+  use S
+  
+  axiom H1  : Color.of_ (Owner.to_ English) = Red
+  axiom H2  : Pet.of_ Swedish = Dog
+  axiom H3  : Drink.of_ Danish = Tea
+  axiom H4  : left_of (Color.to_ Green) (Color.to_ White)
+  axiom H5  : Drink.of_ (Owner.of_ (Color.to_ Green)) = Coffee
+  axiom H6  : Pet.of_ (Cigars.to_ Pall_mall) = Bird
+  axiom H7  : Cigars.of_ (Owner.of_ (Color.to_ Yellow)) = Dunhill
+  axiom H8  : Drink.of_ (Owner.of_ H3) = Milk
+  axiom H9  : Owner.of_ H1 = Norwegian
+  axiom H10 : neighbour (Owner.to_ (Cigars.to_ Blends)) (Owner.to_ (Pet.to_ Cat))
+  axiom H11 : neighbour (Owner.to_ (Pet.to_ Horse)) (Owner.to_ (Cigars.to_ Dunhill))
+  axiom H12 : Drink.of_ (Cigars.to_ Blue_masters) = Beer
+  axiom H13 : Cigars.of_ German = Prince
+  axiom H14 : neighbour (Owner.to_ Norwegian) (Color.to_ Green)
+  axiom H15 : neighbour (Owner.to_ (Cigars.to_ Blends)) (Owner.to_ (Drink.to_ Water))   
+  
+
+end
+
+theory Problem
+  use S
+  use Hints
+  
+  goal G : Pet.to_ Fish = German
+end  
+  
+  
+  
