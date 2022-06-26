@@ -1,0 +1,27 @@
+theory Bijection
+  type t
+  type u
+  
+  function of_ t : u
+  function to_ u : t
+  
+  axiom To_of : forall x : t. to_ (of_ x) = x
+  axiom Of_to : forall y : u. of_ (to_ y) = y
+
+end
+
+theory Einstein
+
+  type nationality  : english | swedish | danish | norwegian | german
+  type house        : h1 | h2 | h3 | h4 | h5
+  type color        : red | green | white | yellow | blue
+  type pet          : dog | bird | cat | horse | fish
+  type drink        : tea | coffe | milk | beer | water
+  type cigars_brand : pall_mall | dunhill | blends | blue_masters | prince
+  
+  clone Bijection as Color with type t = house, type u = color
+  clone Bijection as Owner with type t = house, type u = nationality
+  
+  clone Bijection as Pet with type t = nationality, type u = pet
+  clone Bijection as Drink with type t = nationality, type u = drink
+  clone Bijection as Cigars with type t = nationality, type u = cigars_brand
