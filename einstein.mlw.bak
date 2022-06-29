@@ -68,7 +68,7 @@ theory Problem
   use S
   use Hints
   
-  goal G : Pet.to_ Fish = English
+  goal G : Pet.to_ Fish = German
 end  
   
   

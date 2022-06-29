@@ -2,7 +2,33 @@
 <!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
 "http://why3.lri.fr/why3session.dtd">
 <why3session shape_version="6">
-<file format="whyml" proved="true">
+<file format="whyml">
 <path name=".."/><path name="einstein.mlw"/>
+<theory name="S">
+ <goal name="Color.To_of">
+ </goal>
+ <goal name="Color.Of_to">
+ </goal>
+ <goal name="Owner.To_of">
+ </goal>
+ <goal name="Owner.Of_to">
+ </goal>
+ <goal name="Pet.To_of">
+ </goal>
+ <goal name="Pet.Of_to">
+ </goal>
+ <goal name="Drink.To_of">
+ </goal>
+ <goal name="Drink.Of_to">
+ </goal>
+ <goal name="Cigars.To_of">
+ </goal>
+ <goal name="Cigars.Of_to">
+ </goal>
+</theory>
+<theory name="Problem">
+ <goal name="G">
+ </goal>
+</theory>
 </file>
 </why3session>

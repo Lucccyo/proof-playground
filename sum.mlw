@@ -1,0 +1,18 @@
+module Max_sum
+  use int.Int
+  use ref.Ref
+  use array.Array
+  
+  let max_sum (a : array int) (n : int) : (int, int) = 
+    requires { n = length a }
+    requires { forall i. 0 <= i < n -> a[i] >= 0 }
+    returns { sum, max -> sum <= n * max }
+    let ref sum = 0 in
+    let ref max = 0 in
+    for i = 0 to n - 1 do
+      invariant { sum <= i * max }
+      if a[i] > max then max <- a[i];
+      sum <- sum + a[i]
+    done;
+    sum, max
+end
