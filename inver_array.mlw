@@ -1,0 +1,9 @@
+module invertInject
+use int.Int
+use array.Array
+
+predicate injective (a: array) (n: int) =
+  forall i j. 0 <= i < n -> 0 <= j < n -> i <> j -> a[i] <> a[j]
+  
+(* predicate surjective (a: array) (n: int) =
+    forall i j. 0 <= i < n -> exists 0 <= j < n -> *)
